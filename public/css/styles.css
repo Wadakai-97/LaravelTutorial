@@ -1,0 +1,39 @@
+/* 共通 */
+body {
+ background-color: #ffff;
+}
+
+/* 商品一覧 */
+table {
+	table-layout: fixed;
+}
+thead th {
+	background:#181B39;
+	font-weight: bold;
+	color:#fff;
+}
+tbody th,
+tfoot th {
+	background:#FFFFFC;
+	font-weight: bold;
+}
+tbody td,
+tfoot td {
+	text-align:center;
+}
+tr:nth-child(2n) td {
+    background: #FBFBF6;
+}
+.img_path {
+    max-width: 200px;
+    max-height: 200px;
+}
+
+/* フッター */
+footer {
+    font-size: 12%;
+    text-align: center;
+    color: white;
+    margin-top: 400px;
+    background-color: black;
+}
