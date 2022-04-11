@@ -9,12 +9,16 @@
         <label>商品名</label>
             <input type="text" name="product_keyword">
         <label>メーカー名</label>
+
+        {{-- 修正 --}}
             <select name="company_keyword">
                 <option disabled selected>未選択</option>
-                @foreach ($products->unique('company_id') as $product)
-                <option>{{ $product->company->company_name }}</option>
+                @foreach ($companies as $company)
+                <option>{{ $company->company_name }}</option>
                 @endforeach
             </select>
+
+
         <input type="submit" value="検索">
     </form>
     <input type="submit" value="新規登録" onclick="location.href='/tutorial/public/product/newregistration'">

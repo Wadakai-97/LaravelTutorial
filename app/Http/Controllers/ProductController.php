@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -12,7 +13,8 @@ class ProductController extends Controller
     // 商品情報の一覧表示
     public function showList() {
         $products = Product::all();
-        return view('management.show_list', compact('products'));
+        $companies = Company::all();
+        return view('management.show_list', compact('products', 'companies'));
     }
 
     // 商品情報の部分一致検索
@@ -20,20 +22,24 @@ class ProductController extends Controller
         $product_keyword = $request->input('product_keyword');
         $company_keyword = $request->input('company_keyword');
         $query = Product::query();
+        $companies = Company::all();
+
         // 部分一致検索
         if (!empty($product_keyword)) {
             $query->where('product_name', 'LIKE', "%{$product_keyword}%");
+            $products = $query->get();
         }
         if (!empty($company_keyword)) {
+            $query->select('products.*');
             $query->where('company_name', 'LIKE', "%{$company_keyword}%");
+            $query->join('companies', function($query) use ($request) {
+                $query->on('products.company_id', '=', 'companies.id');
+                // dd($query->get());
+            });
+            $products = $query->get();
         }
-        // テーブル結合
-        $query->join('companies', function($query) use ($request) {
-            $query->on('products.company_id', '=', 'companies.id');
-        });
 
-        $products = $query->get();
-        return view('management.show_list', compact('products', 'product_keyword', 'company_keyword'));
+        return view('management.show_list', compact('products', 'companies', 'product_keyword', 'company_keyword'));
     }
 
     // 商品情報の削除

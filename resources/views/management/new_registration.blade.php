@@ -25,7 +25,7 @@
     <form action="" method="post" enctype="multipart/form-data">
     @csrf
     <tbody>
-        <tr>
+          <tr>
             <td value="商品名"><input type="text" name="product_name"></td>
             <td value="メーカー">
                 <select name="company_id">
