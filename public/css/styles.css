@@ -1,6 +1,6 @@
 /* 共通 */
 body {
- background-color: #ffff;
+    background-color: #ffff;
 }
 
 /* 商品一覧 */
@@ -28,7 +28,6 @@ tr:nth-child(2n) td {
     max-width: 200px;
     max-height: 200px;
 }
-
 /* フッター */
 footer {
     font-size: 12%;

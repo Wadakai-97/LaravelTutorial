@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request\Request;
+use App\Http\Requests\ProductRequest;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
