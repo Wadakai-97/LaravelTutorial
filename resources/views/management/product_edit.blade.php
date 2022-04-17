@@ -14,7 +14,6 @@
             <th>商品画像</th>
         </tr>
     </thead>
-
     <form action="/tutorial/public/product/update/{{ $product->id }}" method="post" enctype="multipart/form-data">
         @method('PATCH')
         @csrf
@@ -38,16 +37,14 @@
             <input type="hidden" name="_method" value="PATCH">
             <td><textarea name="comment">{{ $product->comment }}</textarea></td>
             <input type="hidden" name="_method" value="PATCH">
-            <td><input type="file" name="img_path" accept="image/jpeg" value="{{ $product->img_path }}"></td>
+            <td><img src="{{ asset('/storage/img_path/' . $product->img_path) }}" class="img_path"><input type="file" name="img_path" accept="image/jpeg" value="{{ $product->img_path }}"></td>
             <td><input type="submit" value="更新"></td>
         </tr>
     </tbody>
     </form>
 </table>
-
 <form action="/tutorial/public/product/showdetail/{{ $product->id }}" method="POST" enctype="multipart/form-data">
     @csrf
     <button>戻る</button>
 </form>
-
 @endsection

@@ -3,28 +3,21 @@
 @section('content')
 <h3>商品一覧</h3>
 <header>
-    {{-- 検索項目 --}}
     <form action="{{ route('product.search')}}" method="post">
         @csrf
         <label>商品名</label>
             <input type="text" name="product_keyword">
         <label>メーカー名</label>
-
-        {{-- 修正 --}}
             <select name="company_keyword">
                 <option disabled selected>未選択</option>
                 @foreach ($companies as $company)
                 <option>{{ $company->company_name }}</option>
                 @endforeach
             </select>
-
-
         <input type="submit" value="検索">
     </form>
     <input type="submit" value="新規登録" onclick="location.href='/tutorial/public/product/newregistration'">
 </header>
-
-{{-- 商品一覧 --}}
 <table>
     <thead>
         <tr>
@@ -36,7 +29,6 @@
             <th>メーカー名</th>
         </tr>
     </thead>
-
     <tbody>
         @foreach($products as $product)
         <tr>
@@ -62,5 +54,4 @@
         @endforeach
     </tbody>
 </table>
-
 @endsection

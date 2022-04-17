@@ -36,7 +36,9 @@ class ProductRequest extends FormRequest
             'product_name.required' => '商品名を入力して下さい。',
             'company_id.required' => 'メーカーを選択して下さい。',
             'price.required' => '価格を入力して下さい。',
+            'price.regex' => '価格は半角英数で入力して下さい。',
             'stock.required' => '在庫数を入力して下さい。',
+            'stock.regex' => '在庫数は半角英数で入力して下さい。',
             'img_path.max' => '画像サイズは10MB以下にする必要があります。',
             'img_path.mimes' => 'ファイル形式はjpg.jpeg.png.pdf以外は入力できません。',
         ];

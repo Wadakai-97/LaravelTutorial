@@ -44,6 +44,5 @@
     </tbody>
     </form>
 </table>
-
 <input type="submit" value="戻る" onclick="location.href='/tutorial/public/product/showlist'">
 @endsection

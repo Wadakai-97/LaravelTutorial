@@ -28,24 +28,16 @@ class ProductController extends Controller
 
         // 部分一致検索
         if (!empty($product_keyword)) {
-            $query->where('product_name', 'LIKE', "%{$product_keyword}%");
-            $products = $query->get();
+            $products = Product::searchbyproduct($product_keyword)->get();
         }
         if (!empty($company_keyword)) {
-            $query->select('products.*');
-            $query->where('company_name', 'LIKE', "%{$company_keyword}%");
-            $query->join('companies', function($query) use ($request) {
-                $query->on('products.company_id', '=', 'companies.id');
-            });
-            $products = $query->get();
+            $products = Product::searchbycompany($company_keyword, $request)->get();
         }
-
         return view('management.show_list', compact('products', 'companies', 'product_keyword', 'company_keyword'));
     }
-
     // 商品情報の削除
     public function productDelete($id) {
-        DB::transaction(function() use ($id) {
+        DB::transaction(function() use($id) {
             $delete_product = Product::find($id);
             if ($delete_product != null) {
                 $delete_product->delete();
@@ -71,9 +63,9 @@ class ProductController extends Controller
     }
     // 商品情報の入力情報保存
     public function productEdit($id, Request $request) {
-        DB::transaction(function () use ($id, $request) {
-                $product = Product::find($id);
-                if(!$request->file('img_path')) {
+        DB::transaction(function() use($id, $request) {
+            $product = Product::find($id);
+            if (!$request->file('img_path')) {
                 $product->product_name = $request->product_name;
                 $product->price = $request->price;
                 $product->stock = $request->stock;
@@ -86,11 +78,10 @@ class ProductController extends Controller
                 $product->stock = $request->stock;
                 $product->comment = $request->comment;
                 $product->save();
-
-                $path = $request->file('img_path')->storeAs('public/img_path', $post->id.'.'.$request->img_path->extension());
+                $path = $request->file('img_path')->storeAs('public/img_path', $product->id.'.'.$request->img_path->extension());
                 $filename = basename($path);
-                $post->img_path = $filename;
-                $post->save();
+                $product->img_path = $filename;
+                $product->save();
             }
         });
         $query = Product::query();
@@ -105,15 +96,14 @@ class ProductController extends Controller
         $query = Product::query();
         $company_keyword = $request->input('company_id');
         $products = $query->get();
-        return view('management.new_registration', compact('products','company_keyword'));
+        return view('management.newregistration', compact('products', 'company_keyword'));
     }
-
     // 商品情報の新規登録
     public function newRegistration(ProductRequest $request) {
-        DB::transaction(function () use ($request) {
+        DB::transaction(function() use($request) {
             $post = new Product;
 
-            if(!$request->file('img_path')) {
+            if (!$request->file('img_path')) {
                 $post->product_name = $request->product_name;
                 $post->company_id = $request->company_id;
                 $post->price = $request->price;
@@ -127,16 +117,15 @@ class ProductController extends Controller
                 $post->stock = $request->stock;
                 $post->comment = $request->comment;
                 $post->save();
-
                 $path = $request->file('img_path')->storeAs('public/img_path', $post->id.'.'.$request->img_path->extension());
                 $filename = basename($path);
                 $post->img_path = $filename;
                 $post->save();
             };
         });
-            $query = Product::query();
-            $company_keyword = $request->input('company_id');
-            $products = $query->get();
-        return view('management.new_registration', compact('products','company_keyword'));
+        $query = Product::query();
+        $company_keyword = $request->input('company_id');
+        $products = $query->get();
+        return view('management.newregistration', compact('products', 'company_keyword'));
     }
 }

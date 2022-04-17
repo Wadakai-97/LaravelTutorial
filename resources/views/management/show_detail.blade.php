@@ -2,7 +2,6 @@
 @section('title', '商品詳細')
 @section('content')
 <h3>商品情報詳細</h3>
-
 <table>
     <thead>
         <tr>
@@ -15,11 +14,10 @@
             <th>コメント</th>
         </tr>
     </thead>
-
     <tbody>
         <tr>
             <td value="商品情報ID">{{ $product->id }}</td>
-            <td value="商品画像">{{ $product->img_path }}</td>
+            <td value="商品画像"><img src="{{ asset('/storage/img_path/' . $product->img_path) }}" class="img_path"></td>
             <td value="商品名">{{ $product->product_name }}</td>
             <td value="メーカー">{{ $product->company->company_name }}</td>
             <td value="価格">{{ $product->price }}</td>
@@ -34,6 +32,5 @@
         </tr>
     </tbody>
 </table>
-
 <input type="submit" value="戻る" onclick="location.href='/tutorial/public/product/showlist'">
 @endsection
