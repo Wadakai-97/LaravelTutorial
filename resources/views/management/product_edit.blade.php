@@ -15,7 +15,7 @@
         </tr>
     </thead>
 
-    <form action="/tutorial/public/product/edit/{{ $product->id }}" method="post" enctype="multipart/form-data">
+    <form action="/tutorial/public/product/update/{{ $product->id }}" method="post" enctype="multipart/form-data">
         @method('PATCH')
         @csrf
     <tbody>
@@ -26,8 +26,8 @@
             <input type="hidden" name="_method" value="PATCH">
             <td>
                 <select name="company_keyword" value="{{ $product->company->company_name}}">
-                    @foreach ($products->unique('company_id') as $product)
-                    <option value="{{ old('$product->company_id') }}">{{ $product->company->company_name }}</option>
+                    @foreach ($products->unique('company_id') as $company)
+                    <option value="{{ old('$company->company_id') }}">{{ $company->company->company_name }}</option>
                     @endforeach
                 </select>
             </td>
@@ -45,9 +45,9 @@
     </form>
 </table>
 
-<form action="/tutorial/public/product/showdetail/{{ $product->id }}" method="POST">
+<form action="/tutorial/public/product/showdetail/{{ $product->id }}" method="POST" enctype="multipart/form-data">
     @csrf
-    <input type="submit" value="戻る">
+    <button>戻る</button>
 </form>
 
 @endsection

@@ -34,7 +34,7 @@ Route::group(['middleware' => 'auth'], function() {
         Route::post('showdetail/{id}', 'ProductController@showDetail')->name('product.showdetail');
 
         // 商品編集
-        Route::post('edit/{id}', 'ProductController@editView')->name('product.editview');
-        Route::patch('edit/{id}', 'ProductController@productEdit')->name('product.edit');
+        Route::post('edit/{id}', 'ProductController@optionView')->name('product.view');
+        Route::patch('update/{id}', 'ProductController@productEdit')->name('product.edit');
     });
 });

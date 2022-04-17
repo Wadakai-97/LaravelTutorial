@@ -63,24 +63,24 @@ class ProductController extends Controller
     }
 // 編集
     // 商品情報編集画面の表示
-    public function editView($id) {
-        $products = Product::all();
+    public function optionView($id) {
+        $query = Product::query();
         $product = Product::find($id);
+        $products = $query->get();
         return view('management.product_edit', compact('products', 'product'));
     }
-
     // 商品情報の入力情報保存
     public function productEdit($id, Request $request) {
         DB::transaction(function () use ($id, $request) {
-            $product = Product::find($id);
-
-            if(!$request->file('img_path')) {
+                $product = Product::find($id);
+                if(!$request->file('img_path')) {
                 $product->product_name = $request->product_name;
                 $product->price = $request->price;
                 $product->stock = $request->stock;
                 $product->comment = $request->comment;
                 $product->save();
             } else {
+                $product = Product::find($id);
                 $product->product_name = $request->product_name;
                 $product->price = $request->price;
                 $product->stock = $request->stock;
@@ -93,8 +93,10 @@ class ProductController extends Controller
                 $post->save();
             }
         });
-        // return back()->withInput();
-        return view('management.product_edit');
+        $query = Product::query();
+        $product = Product::find($id);
+        $products = $query->get();
+        return view('management.product_edit', compact('products', 'product'));
     }
 // 新規登録
     // 商品情報の代入
@@ -130,8 +132,11 @@ class ProductController extends Controller
                 $filename = basename($path);
                 $post->img_path = $filename;
                 $post->save();
-        };
-        return view('management.new_registration');
+            };
         });
+            $query = Product::query();
+            $company_keyword = $request->input('company_id');
+            $products = $query->get();
+        return view('management.new_registration', compact('products','company_keyword'));
     }
 }
