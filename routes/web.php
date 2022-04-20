@@ -35,6 +35,6 @@ Route::group(['middleware' => 'auth'], function() {
 
         // 商品編集
         Route::post('edit/{id}', 'ProductController@optionView')->name('product.view');
-        Route::patch('update/{id}', 'ProductController@productEdit')->name('product.edit');
+        Route::patch('update/{id}', 'ProductController@productEdit')->name('product.edit')->name('product.update');
     });
 });

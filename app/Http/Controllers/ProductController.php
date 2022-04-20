@@ -18,6 +18,11 @@ class ProductController extends Controller
         $companies = Company::all();
         return view('management.show_list', compact('products', 'companies'));
     }
+    // 商品情報の一覧表示
+    public function getAllProduct() {
+        $data = Product::All();
+        return $data;
+    }
 
     // 商品情報の部分一致検索
     public function productSearch(Request $request) {

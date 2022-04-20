@@ -24,7 +24,7 @@
             <td value="在庫数">{{ $product->stock }}</td>
             <td value="コメント">{{ $product->comment }}</td>
             <td>
-                <form action="/tutorial/public/product/edit/{{ $product->id }}" method="POST">
+                <form action="{{ route('product.view', ['id' => $product->id]) }}" method="POST">
                     @csrf
                     <input type="submit" value="編集">
                 </form>
@@ -32,5 +32,5 @@
         </tr>
     </tbody>
 </table>
-<input type="submit" value="戻る" onclick="location.href='/tutorial/public/product/showlist'">
+<input type="submit" value="戻る" onclick="location.href='{{ route('product.list') }}'">
 @endsection
