@@ -45,7 +45,7 @@
     <script>
         $(function() {
             $(document).on('click', '#delete', function() {
-                var delete_confirm = confirm('商品削除しちゃう？');
+                var delete_confirm = confirm('商品を削除しますか？');
 
                 if(delete_confirm == true) {
                     var id = $(this).closest('tr').children('td')[0].innerText;
