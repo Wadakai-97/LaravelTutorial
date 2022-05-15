@@ -12,24 +12,21 @@ use Illuminate\Support\Facades\DB;
 class ProductController extends Controller
 {
 // 一覧
-    // 商品情報の一覧表示
+// 商品情報の一覧表示
     public function showList() {
-        $products = Product::all();
         $companies = Company::all();
-        return view('management.show_list', compact('products', 'companies'));
+        $products_price = Product::orderBy('price', 'ASC')->get();
+        $products_stock = Product::orderBy('stock', 'ASC')->get();
+        return view('management.show_list', compact('companies', 'products_price', 'products_stock'));
     }
-    // 商品情報の一覧表示
-    public function getAllProduct() {
-        $data = Product::All();
-        return $data;
-    }
-
     // 商品情報の部分一致検索
     public function productSearch(Request $request) {
         $product_keyword = $request->input('product_keyword');
         $company_keyword = $request->input('company_keyword');
         $query = Product::query();
         $companies = Company::all();
+        $products_price = Product::orderBy('price', 'ASC')->get();
+        $products_stock = Product::orderBy('stock', 'ASC')->get();
 
         // 部分一致検索
         if (!empty($product_keyword)) {
@@ -38,16 +35,17 @@ class ProductController extends Controller
         if (!empty($company_keyword)) {
             $products = Product::searchbycompany($company_keyword, $request)->get();
         }
-        return view('management.show_list', compact('products', 'companies', 'product_keyword', 'company_keyword'));
+        return view('management.show_list', compact('companies', 'product_keyword', 'company_keyword', 'products_price', 'products_stock'));
     }
     // 商品情報の削除
     public function productDelete($id) {
         DB::transaction(function() use($id) {
             $delete_product = Product::find($id);
-            if ($delete_product != null) {
-                $delete_product->delete();
-                return redirect('product/showist');
-            }
+            $delete_product->delete();
+            $status = '削除に成功しました。';
+
+            return response($status);
+            return redirect('product/showlist');
         });
         return redirect('product/showlist');
     }

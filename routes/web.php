@@ -24,17 +24,14 @@ Route::group(['middleware' => 'auth'], function() {
         // 商品一覧
         Route::get('showlist', 'ProductController@showList')->name('product.list');
         Route::post('showlist', 'ProductController@productSearch')->name('product.search');
-        Route::post('delete/{id}', 'ProductController@productDelete')->name('product.delete');
-
+        Route::delete('delete/{id}', 'ProductController@productDelete')->name('product.delete');
         // 新規登録
         Route::get('newregistration', 'ProductController@showForm')->name('product.showForm');
         Route::post('newregistration', 'ProductController@newRegistration')->name('product.newregistration');
-
         // 商品詳細
-        Route::post('showdetail/{id}', 'ProductController@showDetail')->name('product.showdetail');
-
+        Route::get('showdetail/{id}', 'ProductController@showDetail')->name('product.showdetail');
         // 商品編集
         Route::post('edit/{id}', 'ProductController@optionView')->name('product.view');
-        Route::patch('update/{id}', 'ProductController@productEdit')->name('product.edit')->name('product.update');
+        Route::patch('update/{id}', 'ProductController@productEdit')->name('product.edit');
     });
 });

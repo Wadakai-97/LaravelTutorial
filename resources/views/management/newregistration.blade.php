@@ -44,5 +44,5 @@
     </tbody>
     </form>
 </table>
-<input type="submit" value="戻る" onclick="location.href={{ route('product.showlist')}}">
+<button onclick="location.href='{{ route('product.list') }}'">戻る</button>
 @endsection

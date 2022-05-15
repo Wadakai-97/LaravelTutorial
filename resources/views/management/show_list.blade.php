@@ -3,55 +3,64 @@
 @section('content')
 <h3>商品一覧</h3>
 <header>
-    <form action="{{ route('product.search') }}" method="post">
+    <form action="" method="POST">
         @csrf
         <label>商品名</label>
-            <input type="text" name="product_keyword" id="productKeyword">
+            <input type="text" name="product_keyword" id="productKeyword" value=""><br>
         <label>メーカー名</label>
             <select name="company_keyword" id="companyKeyword">
-                <option disabled selected>未選択</option>
+                <option disabled selected></option>
                 @foreach ($companies as $company)
                 <option>{{ $company->company_name }}</option>
                 @endforeach
+            </select><br>
+        <label>価格（最低〜最高）</label>
+            <select name="lowest_price" id="lowestPrice">
+                <option disabled selected></option>
+                @foreach ($products_price as $product_price)
+                <option>{{ $product_price->price }}</option>
+                @endforeach
             </select>
-        <input type="submit" value="検索">
+        <label>〜</label>
+            <select name="highest_price" id="highestPrice">
+                <option disabled selected></option>
+                @foreach ($products_price as $product_price)
+                <option>{{ $product_price->price }}</option>
+                @endforeach
+            </select><br>
+        <label>在庫数（最低〜最高）</label>
+        <select name="lowest_stock" id="lowestStock">
+            <option disabled selected></option>
+            @foreach ($products_stock as $product_stock)
+            <option>{{ $product_stock->stock }}</option>
+            @endforeach
+        </select>
+        <label>〜</label>
+        <select name="highest_stock" id="highestStock">
+            <option disabled selected></option>
+            @foreach ($products_stock as $product_stock)
+            <option>{{ $product_stock->stock }}</option>
+            @endforeach
+        </select>
+        <input type="submit" value="検索" id="search">
     </form>
-    <input type="submit" value="新規登録" onclick="{{ route('product.showForm') }}">
+    <br><button onclick="location.href='{{ route('product.showForm') }}'">新規登録</button>
 </header>
+<br>
 <table>
     <thead>
         <tr>
-            <th>id</th>
-            <th>商品画像</th>
-            <th>商品名</th>
-            <th>価格</th>
-            <th>在庫数</th>
-            <th>メーカー名</th>
+            <th id="0" data-sort="">id</th>
+            <th id="1" data-sort="">商品画像</th>
+            <th id="2" data-sort="">商品名</th>
+            <th id="3" data-sort="">価格</th>
+            <th id="4" data-sort="">在庫数</th>
+            <th id="5" data-sort="">メーカー名</th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
-    <tbody>
-        @foreach($products as $product)
-        <tr id="productList">
-            <td value="id">{{ $product->id }}</td>
-            <td value="商品画像"><img src="{{ asset('/storage/img_path/' . $product->img_path) }}" class="img_path"></td>
-            <td value="商品名">{{ $product->product_name }}</td>
-            <td value="価格">{{ $product->price }}</td>
-            <td value="在庫数">{{ $product->stock }}</td>
-            <td value="メーカー名">{{ $product->company->company_name }}</td>
-            <td>
-                <form action="{{ route('product.showdetail', ['id' => $product->id]) }}" method="POST">
-                    @csrf
-                    <input type="submit" value="詳細表示">
-                </form>
-            </td>
-            <td>
-                <form action="{{ route('product.delete', ['id' => $product->id]) }}" method="POST">
-                    @csrf
-                    <input type="submit" value="削除" onclick="clickDelete();return false;">
-                </form>
-            </td>
-        </tr>
-        @endforeach
+    <tbody id="showAllProduct">
     </tbody>
     <table></table>
 </table>

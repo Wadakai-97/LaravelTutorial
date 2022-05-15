@@ -14,7 +14,7 @@
             <th>商品画像</th>
         </tr>
     </thead>
-    <form action="{{ route('product.update', ['id' => $product->id]) }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('product.edit', ['id' => $product->id]) }}" method="post" enctype="multipart/form-data">
         @method('PATCH')
         @csrf
     <tbody>
@@ -43,7 +43,7 @@
     </tbody>
     </form>
 </table>
-<form action="{{ route('product.showdetail', ['id' => $product->id]) }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('product.showdetail', ['id' => $product->id]) }}" enctype="multipart/form-data">
     @csrf
     <button>戻る</button>
 </form>

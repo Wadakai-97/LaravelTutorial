@@ -49775,6 +49775,8 @@ module.exports = function(module) {
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+__webpack_require__(/*! ./product.js */ "./resources/js/product.js");
+
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /**
  * The following block of code may be used to automatically register your
@@ -49910,6 +49912,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/product.js":
+/*!*********************************!*\
+  !*** ./resources/js/product.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _require = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"),
+    values = _require.values; // 詳細画面の表示
+
+
+function clickDetail() {
+  $(document).on('click', '#detail', function () {
+    var product_id = $(this).closest('tr').children("td")[0].innerText;
+    window.location.href = "/tutorial/public/product/showdetail/" + product_id;
+  });
+}
 
 /***/ }),
 
